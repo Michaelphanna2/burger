@@ -1,0 +1,58 @@
+<div id="header" class="text-center">
+    <h1 id="title">Eat Da Burger</h1>
+</div>
+<div class="container">
+    <div class="col-sm-12 text-center">
+        <h4 "text-center">Select Your Burger</h4>
+        <form class="button-size" action="/api/burgers" method="POST">
+            <input type="text" class="text-center" id="insertBurger" name="burger_name" placeholder="Type in your dream burger"></input>
+            <span class="input-group-btn">
+                <button type="submit" class="insertBurgerBtn btn btn-primary">Submit!</button>
+            </span>
+        </form>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="text-center columnHeading">Burgers To Eat:</h4>
+            {{#each burgers}} {{#unless this.devoured}}
+            <form >
+                <div class="input-group">
+                    <input type="hidden" name="devoured" value="true">
+                    <li class="form-control uneaten">{{this.burger_name}}</li>
+                    <span class="input-group-btn">
+                        <button class="eatBurger btn btn-info" data-id="{{id}}" type="submit">Eat Da Burger!</button>
+                    </span>
+                </div>
+            </form>
+            {{/unless}} {{/each}}
+        </div>
+
+
+        <div class="col-sm-6">
+            <h4 class="text-center columnHeading">Eaten Burgers:</h4>
+            {{#each burgers}} {{#if this.devoured}}
+            <div>
+                <li class="form-control devoured">{{this.burger_name}}</li>
+            </div>
+            </form>
+            {{/if}} {{/each}}
+        </div>
+    </div>
+    <br>
+</div>
+<script>
+    
+$(".eatBurger").click(function(event){
+    event.preventDefault()
+    let id = $(this).attr("data-id")
+    console.log(id)
+    $.ajax({
+        url:'/api/burgers/'+id,
+        type:'PUT',
+    }).then(function(info){
+        location.reload()
+    })
+})
+</script>
