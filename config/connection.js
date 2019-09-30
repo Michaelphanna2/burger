@@ -5,6 +5,7 @@ var inquirer = require("inquirer");
 //initialize connection
 var connection;
 if (process.env.JAWSDB_URL) {
+  console.log("are you alive?");
   connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
   connection = mysql.createConnection ({
@@ -12,7 +13,7 @@ if (process.env.JAWSDB_URL) {
     port: 3306,
     user: "root",
     password: "Dogman2010!",
-    database: "burgers_db"
+    database: "burgers_db" 
   });
 };
 
